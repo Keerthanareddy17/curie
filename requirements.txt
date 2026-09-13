@@ -1,0 +1,14 @@
+# Convenience mirror of pyproject.toml's [project.dependencies] for `pip install -r`.
+# pyproject.toml is the source of truth; keep these in sync.
+langgraph>=1.0,<2.0
+fastapi>=0.115,<1.0
+uvicorn[standard]>=0.30
+httpx>=0.27
+pydantic>=2.7,<3.0
+pydantic-settings>=2.4
+structlog>=24.1
+google-genai>=1.0
+
+# dev/test
+pytest>=8.0
+pytest-asyncio>=0.24

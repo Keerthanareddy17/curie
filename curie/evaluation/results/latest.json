@@ -1,0 +1,661 @@
+{
+  "run_timestamp": "2026-09-13T21:47:30.725605+00:00",
+  "cases_evaluated": 6,
+  "scenarios_evaluated": 8,
+  "metrics": {
+    "source_retrieval_success": 1.0,
+    "provenance_validity": 1.0,
+    "evidence_grounding_rate": 1.0,
+    "evidence_type_correctness": 1.0,
+    "cross_source_consistency": 1.0,
+    "conflict_detection": 1.0,
+    "abstention_correctness": 1.0,
+    "tool_recovery_success": 1.0,
+    "unsupported_claim_rate": 0.0,
+    "end_to_end_success": 1.0
+  },
+  "metrics_detail": {
+    "source_retrieval_success": {
+      "value": 1.0,
+      "note": "Numerator/denominator exclude SKIPPED_CORRECTLY (the planner correctly decided a source was irrelevant) and NOT_EVALUATED (no expectation set for that case) per spec section 4/Metric 1.",
+      "pass": 20,
+      "failed": 0,
+      "skipped_correctly": 3,
+      "not_evaluated": 1
+    },
+    "provenance_validity": {
+      "value": 1.0,
+      "valid": 40,
+      "total": 40,
+      "failing_examples": []
+    },
+    "evidence_grounding_rate": {
+      "value": 1.0,
+      "grounded": 17,
+      "total": 17,
+      "failing_examples": []
+    },
+    "evidence_type_correctness": {
+      "value": 1.0,
+      "correct": 40,
+      "total": 40,
+      "failing_examples": []
+    },
+    "cross_source_consistency": {
+      "value": 1.0,
+      "agreement": 5,
+      "disagreement": 0,
+      "incomparable": 1,
+      "insufficient_evidence": 0
+    },
+    "conflict_detection": {
+      "value": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_positive": 1,
+      "false_negative": 0,
+      "false_positive": 0,
+      "true_negative": 7,
+      "note": "Computed only over curie/evaluation/scenarios/fault_scenarios.py, the only place with a known ground-truth conflict label (Scenario D). The scientific benchmark's real-world cases have no such label and do not contribute here, per spec section 5/Metric 6."
+    },
+    "abstention_correctness": {
+      "value": 1.0,
+      "correct": 3,
+      "total": 3,
+      "from_benchmark_cases": 1,
+      "from_fault_scenarios": 2
+    },
+    "tool_recovery_success": {
+      "value": 1.0,
+      "passed": 4,
+      "total": 4,
+      "scenario_ids": [
+        "A",
+        "C",
+        "F",
+        "H"
+      ]
+    },
+    "unsupported_claim_rate": {
+      "value": 0.0,
+      "unsupported": 0,
+      "total": 17,
+      "failing_examples": [],
+      "note": "Computed over the scientific/evidence benchmark's claims only (fault scenarios reuse the same claim-generation code path, already covered by curie/evaluation/scenarios/fault_scenarios.py's own checks)."
+    },
+    "end_to_end_success": {
+      "value": 1.0,
+      "correct": 9,
+      "total": 9,
+      "from_benchmark_cases": 1,
+      "from_fault_scenarios": 8,
+      "note": "Benchmark cases only contribute where final_behavior is not 'not_evaluated' (see curie/evaluation/datasets/README.md for why most happy-path cases leave it unset)."
+    }
+  },
+  "identity_evaluation_breakdown": {
+    "identity_supplied": 5,
+    "identity_resolved": 0,
+    "identity_unresolved": 1,
+    "identity_not_evaluated": 0,
+    "note": "identity_supplied cases are NEVER counted toward identity-resolution accuracy \u2014 see spec section 6 / docs/LIMITATIONS.md. curie does not currently implement sequence-to-accession resolution, so identity_resolved (independent success) is not reachable today; this is documented, not hidden."
+  },
+  "cases": [
+    {
+      "case_id": "sars_cov2_spike_rbd_with_hint",
+      "run_id": "inv-091dc2f99f40",
+      "sequence_length": 223,
+      "accession_hint": "P0DTC2",
+      "identity_eval_class": "identity_supplied",
+      "final_status": "supported",
+      "evidence_score": 1.0,
+      "evidence_count": 8,
+      "conflicts": 0,
+      "tool_statuses": {
+        "gemini": "ok",
+        "uniprot": "ok",
+        "esm_atlas": "ok",
+        "iedb": "ok",
+        "europe_pmc": "ok"
+      },
+      "end_to_end_expected": null,
+      "end_to_end_match": null,
+      "source_checks": [
+        {
+          "source": "uniprot",
+          "outcome": "PASS",
+          "detail": "actual_status=ok"
+        },
+        {
+          "source": "esm_atlas",
+          "outcome": "PASS",
+          "detail": "actual_status=ok"
+        },
+        {
+          "source": "iedb",
+          "outcome": "PASS",
+          "detail": "actual_status=ok"
+        },
+        {
+          "source": "europe_pmc",
+          "outcome": "PASS",
+          "detail": "actual_status=ok"
+        }
+      ]
+    },
+    {
+      "case_id": "sars_cov2_spike_rbd_no_hint",
+      "run_id": "inv-3d07bf922ee1",
+      "sequence_length": 223,
+      "accession_hint": null,
+      "identity_eval_class": "identity_unresolved",
+      "final_status": "insufficient_evidence",
+      "evidence_score": 0.25,
+      "evidence_count": 4,
+      "conflicts": 0,
+      "tool_statuses": {
+        "gemini": "ok",
+        "esm_atlas": "ok",
+        "iedb": "skipped",
+        "europe_pmc": "skipped"
+      },
+      "end_to_end_expected": "insufficient_evidence",
+      "end_to_end_match": true,
+      "source_checks": [
+        {
+          "source": "uniprot",
+          "outcome": "NOT_EVALUATED",
+          "detail": "no expectation set for this case"
+        },
+        {
+          "source": "esm_atlas",
+          "outcome": "PASS",
+          "detail": "actual_status=ok"
+        },
+        {
+          "source": "iedb",
+          "outcome": "SKIPPED_CORRECTLY",
+          "detail": "actual_status=skipped"
+        },
+        {
+          "source": "europe_pmc",
+          "outcome": "SKIPPED_CORRECTLY",
+          "detail": "actual_status=skipped"
+        }
+      ]
+    },
+    {
+      "case_id": "ovalbumin_with_hint",
+      "run_id": "inv-a17259ec06d3",
+      "sequence_length": 386,
+      "accession_hint": "P01012",
+      "identity_eval_class": "identity_supplied",
+      "final_status": "supported",
+      "evidence_score": 1.0,
+      "evidence_count": 8,
+      "conflicts": 0,
+      "tool_statuses": {
+        "gemini": "ok",
+        "uniprot": "ok",
+        "esm_atlas": "ok",
+        "iedb": "ok",
+        "europe_pmc": "ok"
+      },
+      "end_to_end_expected": null,
+      "end_to_end_match": null,
+      "source_checks": [
+        {
+          "source": "uniprot",
+          "outcome": "PASS",
+          "detail": "actual_status=ok"
+        },
+        {
+          "source": "esm_atlas",
+          "outcome": "PASS",
+          "detail": "actual_status=ok"
+        },
+        {
+          "source": "iedb",
+          "outcome": "PASS",
+          "detail": "actual_status=ok"
+        },
+        {
+          "source": "europe_pmc",
+          "outcome": "PASS",
+          "detail": "actual_status=ok"
+        }
+      ]
+    },
+    {
+      "case_id": "lysozyme_with_hint",
+      "run_id": "inv-631d361bbbdd",
+      "sequence_length": 147,
+      "accession_hint": "P00698",
+      "identity_eval_class": "identity_supplied",
+      "final_status": "supported",
+      "evidence_score": 1.0,
+      "evidence_count": 8,
+      "conflicts": 0,
+      "tool_statuses": {
+        "gemini": "ok",
+        "uniprot": "ok",
+        "esm_atlas": "ok",
+        "iedb": "ok",
+        "europe_pmc": "ok"
+      },
+      "end_to_end_expected": null,
+      "end_to_end_match": null,
+      "source_checks": [
+        {
+          "source": "uniprot",
+          "outcome": "PASS",
+          "detail": "actual_status=ok"
+        },
+        {
+          "source": "esm_atlas",
+          "outcome": "PASS",
+          "detail": "actual_status=ok"
+        },
+        {
+          "source": "iedb",
+          "outcome": "PASS",
+          "detail": "actual_status=ok"
+        },
+        {
+          "source": "europe_pmc",
+          "outcome": "PASS",
+          "detail": "actual_status=ok"
+        }
+      ]
+    },
+    {
+      "case_id": "insulin_with_hint",
+      "run_id": "inv-811255541799",
+      "sequence_length": 110,
+      "accession_hint": "P01308",
+      "identity_eval_class": "identity_supplied",
+      "final_status": "supported",
+      "evidence_score": 1.0,
+      "evidence_count": 8,
+      "conflicts": 0,
+      "tool_statuses": {
+        "gemini": "ok",
+        "uniprot": "ok",
+        "esm_atlas": "ok",
+        "iedb": "ok",
+        "europe_pmc": "ok"
+      },
+      "end_to_end_expected": null,
+      "end_to_end_match": null,
+      "source_checks": [
+        {
+          "source": "uniprot",
+          "outcome": "PASS",
+          "detail": "actual_status=ok"
+        },
+        {
+          "source": "esm_atlas",
+          "outcome": "PASS",
+          "detail": "actual_status=ok"
+        },
+        {
+          "source": "iedb",
+          "outcome": "PASS",
+          "detail": "actual_status=ok"
+        },
+        {
+          "source": "europe_pmc",
+          "outcome": "PASS",
+          "detail": "actual_status=ok"
+        }
+      ]
+    },
+    {
+      "case_id": "hiv_gp160_oversized_with_hint",
+      "run_id": "inv-e8ac061fea7a",
+      "sequence_length": 856,
+      "accession_hint": "P04578",
+      "identity_eval_class": "identity_supplied",
+      "final_status": "supported",
+      "evidence_score": 0.9,
+      "evidence_count": 8,
+      "conflicts": 0,
+      "tool_statuses": {
+        "gemini": "ok",
+        "uniprot": "ok",
+        "esm_atlas": "skipped",
+        "iedb": "ok",
+        "europe_pmc": "ok"
+      },
+      "end_to_end_expected": null,
+      "end_to_end_match": null,
+      "source_checks": [
+        {
+          "source": "uniprot",
+          "outcome": "PASS",
+          "detail": "actual_status=ok"
+        },
+        {
+          "source": "esm_atlas",
+          "outcome": "SKIPPED_CORRECTLY",
+          "detail": "actual_status=skipped"
+        },
+        {
+          "source": "iedb",
+          "outcome": "PASS",
+          "detail": "actual_status=ok"
+        },
+        {
+          "source": "europe_pmc",
+          "outcome": "PASS",
+          "detail": "actual_status=ok"
+        }
+      ]
+    }
+  ],
+  "reliability_scenarios": [
+    {
+      "scenario_id": "A",
+      "title": "ESM Atlas timeout",
+      "injected_fault": "esm_atlas.fold_sequence times out",
+      "expected_behavior": "Timeout recorded as ToolStatus.TIMEOUT; no fake structure generated; trace contains the failure; independent evidence collection continues; dossier states structural evidence is unavailable.",
+      "actual_behavior": "status=supported, evidence_score=0.875, conflicts=0, identity_status=resolved_hint",
+      "passed": true,
+      "crashed": false,
+      "run_id": "inv-eae9001125ce",
+      "checks": [
+        {
+          "description": "esm_atlas ToolResult status is TIMEOUT",
+          "passed": true,
+          "detail": "ToolStatus.TIMEOUT"
+        },
+        {
+          "description": "no structure data was fabricated on timeout",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "description": "trace contains a non-ok structure_prediction event",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "description": "independent tools (uniprot, iedb, europe_pmc) still ran and succeeded",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "description": "dossier records no predicted-structure evidence",
+          "passed": true,
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "scenario_id": "B",
+      "title": "Sequence exceeds ESM Atlas's fold-length limit",
+      "injected_fault": "none (real code path) \u2014 a 450 aa sequence, over the 400 aa limit",
+      "expected_behavior": "ESM Atlas is SKIPPED with an explicit reason; the sequence is not silently truncated and folded; other tools continue; dossier reflects missing structural evidence.",
+      "actual_behavior": "status=supported, evidence_score=0.875, conflicts=0, identity_status=resolved_hint",
+      "passed": true,
+      "crashed": false,
+      "run_id": "inv-b8f8dd709495",
+      "checks": [
+        {
+          "description": "esm_atlas ToolResult status is SKIPPED",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "description": "skip reason explicitly mentions the length limit",
+          "passed": true,
+          "detail": "sequence length 450 exceeds supported fold length (400 aa)"
+        },
+        {
+          "description": "sequence was not silently truncated before evaluation",
+          "passed": true,
+          "detail": "normalized_length=450, input_length=450"
+        },
+        {
+          "description": "other tools (uniprot, iedb, europe_pmc) still ran and succeeded",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "description": "dossier records no predicted-structure evidence",
+          "passed": true,
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "scenario_id": "C",
+      "title": "UniProt no-match on a supplied accession",
+      "injected_fault": "uniprot.get_entry returns a 404-shaped ERROR (invalid/unknown accession)",
+      "expected_behavior": "Identity stays UNRESOLVED; no accession is invented; downstream evidence requiring identity is correctly SKIPPED, not fabricated; final status reflects insufficient evidence.",
+      "actual_behavior": "status=insufficient_evidence, evidence_score=0.125, conflicts=0, identity_status=unresolved",
+      "passed": true,
+      "crashed": false,
+      "run_id": "inv-656ee75011e8",
+      "checks": [
+        {
+          "description": "identity_status is UNRESOLVED",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "description": "no candidate protein was fabricated",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "description": "IEDB query correctly SKIPPED (no resolved accession)",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "description": "Europe PMC query correctly SKIPPED (no resolved protein name)",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "description": "final status reflects insufficient evidence",
+          "passed": true,
+          "detail": "insufficient_evidence"
+        },
+        {
+          "description": "dossier identity_result honestly says UNRESOLVED",
+          "passed": true,
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "scenario_id": "D",
+      "title": "Conflicting evidence between independent sources",
+      "injected_fault": "uniprot resolves to 'Hemagglutinin' while iedb's records name 'Spike glycoprotein' for the same accession",
+      "expected_behavior": "A conflict object is created and surfaced; confidence is not allowed to paper over it; final status becomes CONFLICTING; the system does not silently pick a preferred side.",
+      "actual_behavior": "status=conflicting, evidence_score=0.833, conflicts=1, identity_status=resolved_hint",
+      "passed": true,
+      "crashed": false,
+      "run_id": "inv-147760f59d5d",
+      "checks": [
+        {
+          "description": "at least one conflict was recorded",
+          "passed": true,
+          "detail": "1 conflict(s)"
+        },
+        {
+          "description": "at least one claim has agreement=CONFLICT",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "description": "no conflict was silently marked resolved",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "description": "final status is CONFLICTING",
+          "passed": true,
+          "detail": "conflicting"
+        },
+        {
+          "description": "dossier surfaces the conflict rather than hiding it",
+          "passed": true,
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "scenario_id": "E",
+      "title": "Valid but insufficient evidence",
+      "injected_fault": "none \u2014 no accession_hint given, so only a real predicted structure is ever established",
+      "expected_behavior": "The agent abstains: final status = INSUFFICIENT_EVIDENCE; the dossier explains what's missing; no unsupported identity/epitope conclusion is produced despite a genuinely valid structure prediction existing.",
+      "actual_behavior": "status=insufficient_evidence, evidence_score=0.167, conflicts=0, identity_status=unresolved",
+      "passed": true,
+      "crashed": false,
+      "run_id": "inv-b65c5a33eb85",
+      "checks": [
+        {
+          "description": "a genuinely valid structure prediction exists",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "description": "identity remains UNRESOLVED (never attempted, no hint given)",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "description": "final status is INSUFFICIENT_EVIDENCE (abstention)",
+          "passed": true,
+          "detail": "insufficient_evidence"
+        },
+        {
+          "description": "dossier lists specific missing evidence",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "description": "no identity or epitope conclusion is asserted",
+          "passed": true,
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "scenario_id": "F",
+      "title": "Malformed (wrong-shape) API responses",
+      "injected_fault": "uniprot.get_entry and europe_pmc.search both return a 200 OK with a non-dict body",
+      "expected_behavior": "The parser rejects the malformed payload safely (no crash); a structured failure is recorded; no fabricated fallback evidence is produced; other tools continue; final result reflects the missing source.",
+      "actual_behavior": "status=insufficient_evidence, evidence_score=0.25, conflicts=0, identity_status=unresolved",
+      "passed": true,
+      "crashed": false,
+      "run_id": "inv-4559ab3dbcd8",
+      "checks": [
+        {
+          "description": "malformed uniprot payload does not crash the graph",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "description": "malformed uniprot payload leaves identity UNRESOLVED, not guessed",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "description": "independent esm_atlas still succeeds despite malformed uniprot data",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "description": "malformed europe_pmc payload does not crash the graph",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "description": "malformed europe_pmc payload is recorded as absence-of-evidence, not fabricated literature",
+          "passed": true,
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "scenario_id": "G",
+      "title": "Literature that may concern a homolog, not the exact sequence",
+      "injected_fault": "none \u2014 realistic name-matched Europe PMC results, which can never be proven to be about this exact sequence",
+      "expected_behavior": "Literature is retained as useful context but every record is labeled INDIRECT; it is never counted as exact-sequence (DIRECT) evidence; the dossier preserves that distinction.",
+      "actual_behavior": "status=supported, evidence_score=1.0, conflicts=0, identity_status=resolved_hint",
+      "passed": true,
+      "crashed": false,
+      "run_id": "inv-8520de74b15d",
+      "checks": [
+        {
+          "description": "literature evidence was retained",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "description": "every literature record is marked INDIRECT, never DIRECT",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "description": "dossier's literature_evidence references those same (indirect) records",
+          "passed": true,
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "scenario_id": "H",
+      "title": "One entire tool unavailable",
+      "injected_fault": "iedb.search_epitopes_by_source_accession always fails (connection refused)",
+      "expected_behavior": "The failure is recorded; independent tools (uniprot, esm_atlas, europe_pmc) continue unaffected; no fabricated epitope evidence is produced; the final evidence score/status reflects the missing modality.",
+      "actual_behavior": "status=supported, evidence_score=0.875, conflicts=0, identity_status=resolved_hint",
+      "passed": true,
+      "crashed": false,
+      "run_id": "inv-1d345d0efc12",
+      "checks": [
+        {
+          "description": "iedb ToolResult status is ERROR",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "description": "identity still resolves independently of IEDB",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "description": "esm_atlas and europe_pmc still ran and succeeded",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "description": "dossier reaches a real (non-crashed) final status",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "description": "evidence_score reflects the missing modality (< a fully-successful run's 1.0)",
+          "passed": true,
+          "detail": "0.875"
+        },
+        {
+          "description": "missing_evidence mentions the iedb failure",
+          "passed": true,
+          "detail": ""
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "curie does not perform sequence-to-accession identity resolution; cases/scenarios supplying accession_hint are excluded from identity-resolution accuracy scoring (identity_supplied is not identity_resolved). See docs/LIMITATIONS.md.",
+    "evidence_score / confidence_class are internal, deterministic evidence-support scores, not calibrated probabilities of biological truth. See curie/agent/nodes/confidence_gate.py.",
+    "end_to_end_success only scores cases/scenarios with a defined expected final status; 5 of 6 scientific-benchmark cases leave it 'not_evaluated' because their exact outcome depends on live API text this evaluation does not control in advance (see curie/evaluation/datasets/README.md).",
+    "A previously undetected bug (verify_identity_consistency assumed a UniProt *search* response shape but the real code path uses get_entry, a differently-shaped single record) meant the identity-consistency cross-check always returned UNVERIFIABLE on every real run prior to this evaluation phase. Found via fault-injection testing and fixed in curie/tools/evidence_verification.py; see docs/LIMITATIONS.md and the Phase 3 report for detail.",
+    "The 6 scientific-benchmark proteins were deliberately chosen because they are well-characterized model antigens/viral targets with rich public UniProt/IEDB/literature coverage (see curie/evaluation/datasets/README.md) \u2014 a near-100% result here reflects correct behavior on well-documented proteins, not a claim that curie performs this well on obscure or sparsely-annotated ones, which this evaluation does not test.",
+    "Once an accession_hint resolves via UniProt, curie/evaluation/reliability.py's score_run gives a confidence floor of ~0.625 (0.5 x agreement_rate=1.0 from the always-AGREE identity_resolved finding, plus >=0 tool_success_rate) \u2014 meaning a run with a resolved identity can currently degrade to PARTIALLY_SUPPORTED at worst, never abstain into INSUFFICIENT_EVIDENCE, no matter how many of the other three tools fail. Confirmed analytically and not exercised by any scenario here (Scenario E and the no-hint benchmark case both test the unresolved-identity path instead). This is the top scoring-logic risk carried into Phase 4."
+  ]
+}

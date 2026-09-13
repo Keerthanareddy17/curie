@@ -1,0 +1,301 @@
+{
+  "cases": [
+    {
+      "case_id": "sars_cov2_spike_rbd_with_hint",
+      "description": "SARS-CoV-2 Spike receptor-binding domain (residues 319-541 of UniProt P0DTC2), the standard RBD boundary used in the structural literature (e.g. Lan et al. 2020, Nature). accession_hint supplied, as a normal user with prior knowledge of the accession might provide.",
+      "sequence": "RVQPTESIVRFPNITNLCPFGEVFNATRFASVYAWNRKRISNCVADYSVLYNSASFSTFKCYGVSPTKLNDLCFTNVYADSFVIRGDEVRQIAPGQTGKIADYNYKLPDDFTGCVIAWNSNNLDSKVGGNYNYLYRLFRKSNLKPFERDISTEIYQAGSTPCNGVEGFNCYFPLQSYGFQPTNGVGYQPYRVVVLSFELLHAPATVCGPKKSTNLVKNKCVNF",
+      "sequence_type": "protein",
+      "accession_hint": "P0DTC2",
+      "expected": {
+        "identity": {
+          "status": "not_evaluated",
+          "accession": "P0DTC2"
+        },
+        "sources": [
+          "uniprot",
+          "iedb",
+          "europe_pmc",
+          "esm_atlas"
+        ],
+        "evidence_expectations": [
+          {
+            "source": "uniprot",
+            "should_be_called": true,
+            "expect_status": "ok",
+            "expect_evidence_type": "curated_annotation",
+            "notes": "Verified live 2026-09-13: P0DTC2 resolves to 'Spike glycoprotein'."
+          },
+          {
+            "source": "esm_atlas",
+            "should_be_called": true,
+            "expect_status": "ok",
+            "expect_evidence_type": "predicted_structure",
+            "notes": "223 aa, within the 400 aa fold limit; verified the public ESMFold endpoint accepts this length class."
+          },
+          {
+            "source": "iedb",
+            "should_be_called": true,
+            "expect_status": "ok",
+            "expect_evidence_type": "curated_epitope",
+            "notes": "Verified live 2026-09-13: IEDB returns curated epitope records for source antigen UNIPROT:P0DTC2 (non-empty)."
+          },
+          {
+            "source": "europe_pmc",
+            "should_be_called": true,
+            "expect_status": "ok",
+            "expect_evidence_type": "literature",
+            "notes": "Verified live 2026-09-13: 'Spike glycoprotein epitope' query returned 18,132 hits on Europe PMC."
+          }
+        ],
+        "final_behavior": "not_evaluated"
+      }
+    },
+    {
+      "case_id": "sars_cov2_spike_rbd_no_hint",
+      "description": "Identical RBD sequence to sars_cov2_spike_rbd_with_hint, but with NO accession_hint. This is curie's 'no free information' case (Phase 3 spec section 6): the true identity (P0DTC2) is known to us for reporting purposes only and is never given to the system. curie does not perform sequence-homology search (see docs/LIMITATIONS.md), so identity is expected to stay UNRESOLVED \u2014 this is scored as CORRECT behavior, not a failure.",
+      "sequence": "RVQPTESIVRFPNITNLCPFGEVFNATRFASVYAWNRKRISNCVADYSVLYNSASFSTFKCYGVSPTKLNDLCFTNVYADSFVIRGDEVRQIAPGQTGKIADYNYKLPDDFTGCVIAWNSNNLDSKVGGNYNYLYRLFRKSNLKPFERDISTEIYQAGSTPCNGVEGFNCYFPLQSYGFQPTNGVGYQPYRVVVLSFELLHAPATVCGPKKSTNLVKNKCVNF",
+      "sequence_type": "protein",
+      "accession_hint": null,
+      "expected": {
+        "identity": {
+          "status": "unresolved",
+          "accession": "P0DTC2"
+        },
+        "sources": [
+          "esm_atlas"
+        ],
+        "evidence_expectations": [
+          {
+            "source": "uniprot",
+            "should_be_called": false,
+            "expect_status": null,
+            "expect_evidence_type": null,
+            "notes": "No hint supplied; identity_resolution never calls UniProt at all in this branch (see agent/nodes/identity_resolution.py)."
+          },
+          {
+            "source": "esm_atlas",
+            "should_be_called": true,
+            "expect_status": "ok",
+            "expect_evidence_type": "predicted_structure",
+            "notes": "Structure prediction has no data dependency on identity."
+          },
+          {
+            "source": "iedb",
+            "should_be_called": false,
+            "expect_status": "skipped",
+            "expect_evidence_type": null,
+            "notes": "Correctly skipped: no resolved accession to query IEDB with."
+          },
+          {
+            "source": "europe_pmc",
+            "should_be_called": false,
+            "expect_status": "skipped",
+            "expect_evidence_type": null,
+            "notes": "Correctly skipped: no resolved protein_name to search on."
+          }
+        ],
+        "final_behavior": "insufficient_evidence"
+      }
+    },
+    {
+      "case_id": "ovalbumin_with_hint",
+      "description": "Chicken ovalbumin, full length (UniProt P01012, 386 aa). Classic immunology model antigen (source of the SIINFEKL / OVA 257-264 epitope, one of the most widely used CD8+ T-cell epitopes in research).",
+      "sequence": "MGSIGAASMEFCFDVFKELKVHHANENIFYCPIAIMSALAMVYLGAKDSTRTQINKVVRFDKLPGFGDSIEAQCGTSVNVHSSLRDILNQITKPNDVYSFSLASRLYAEERYPILPEYLQCVKELYRGGLEPINFQTAADQARELINSWVESQTNGIIRNVLQPSSVDSQTAMVLVNAIVFKGLWEKAFKDEDTQAMPFRVTEQESKPVQMMYQIGLFRVASMASEKMKILELPFASGTMSMLVLLPDEVSGLEQLESIINFEKLTEWTSSNVMEERKIKVYLPRMKMEEKYNLTSVLMAMGITDVFSSSANLSGISSAESLKISQAVHAAHAEINEAGREVVGSAEAGVDAASVSEEFRADHPFLFCIKHIATNAVLFFGRCVSP",
+      "sequence_type": "protein",
+      "accession_hint": "P01012",
+      "expected": {
+        "identity": {
+          "status": "not_evaluated",
+          "accession": "P01012"
+        },
+        "sources": [
+          "uniprot",
+          "iedb",
+          "europe_pmc",
+          "esm_atlas"
+        ],
+        "evidence_expectations": [
+          {
+            "source": "uniprot",
+            "should_be_called": true,
+            "expect_status": "ok",
+            "expect_evidence_type": "curated_annotation",
+            "notes": "Verified live 2026-09-13: P01012 resolves to 'Ovalbumin'."
+          },
+          {
+            "source": "esm_atlas",
+            "should_be_called": true,
+            "expect_status": "ok",
+            "expect_evidence_type": "predicted_structure",
+            "notes": "386 aa, within the 400 aa fold limit."
+          },
+          {
+            "source": "iedb",
+            "should_be_called": true,
+            "expect_status": "ok",
+            "expect_evidence_type": "curated_epitope",
+            "notes": "Verified live 2026-09-13: IEDB has 1,880 curated epitope records for source antigen UNIPROT:P01012."
+          },
+          {
+            "source": "europe_pmc",
+            "should_be_called": true,
+            "expect_status": "ok",
+            "expect_evidence_type": "literature",
+            "notes": "Verified live 2026-09-13: 'Ovalbumin epitope' query returned 10,760 hits on Europe PMC."
+          }
+        ],
+        "final_behavior": "not_evaluated"
+      }
+    },
+    {
+      "case_id": "lysozyme_with_hint",
+      "description": "Hen egg-white lysozyme C, full length (UniProt P00698, 147 aa). A classic model antigen in immunology.",
+      "sequence": "MRSLLILVLCFLPLAALGKVFGRCELAAAMKRHGLDNYRGYSLGNWVCAAKFESNFNTQATNRNTDGSTDYGILQINSRWWCNDGRTPGSRNLCNIPCSALLSSDITASVNCAKKIVSDGNGMNAWVAWRNRCKGTDVQAWIRGCRL",
+      "sequence_type": "protein",
+      "accession_hint": "P00698",
+      "expected": {
+        "identity": {
+          "status": "not_evaluated",
+          "accession": "P00698"
+        },
+        "sources": [
+          "uniprot",
+          "iedb",
+          "europe_pmc",
+          "esm_atlas"
+        ],
+        "evidence_expectations": [
+          {
+            "source": "uniprot",
+            "should_be_called": true,
+            "expect_status": "ok",
+            "expect_evidence_type": "curated_annotation",
+            "notes": "Verified live 2026-09-13: P00698 resolves to 'Lysozyme C'."
+          },
+          {
+            "source": "esm_atlas",
+            "should_be_called": true,
+            "expect_status": "ok",
+            "expect_evidence_type": "predicted_structure",
+            "notes": "147 aa, well within the 400 aa fold limit."
+          },
+          {
+            "source": "iedb",
+            "should_be_called": true,
+            "expect_status": "ok",
+            "expect_evidence_type": "curated_epitope",
+            "notes": "Verified live 2026-09-13: IEDB returns curated epitope records for source antigen UNIPROT:P00698 (non-empty)."
+          },
+          {
+            "source": "europe_pmc",
+            "should_be_called": true,
+            "expect_status": "ok",
+            "expect_evidence_type": "literature",
+            "notes": "Verified live 2026-09-13: 'Lysozyme C epitope' query returned 9,090 hits on Europe PMC."
+          }
+        ],
+        "final_behavior": "not_evaluated"
+      }
+    },
+    {
+      "case_id": "insulin_with_hint",
+      "description": "Human insulin, full length preproprotein (UniProt P01308, 110 aa). A well-studied autoantigen in Type 1 diabetes research.",
+      "sequence": "MALWMRLLPLLALLALWGPDPAAAFVNQHLCGSHLVEALYLVCGERGFFYTPKTRREAEDLQVGQVELGGGPGAGSLQPLALEGSLQKRGIVEQCCTSICSLYQLENYCN",
+      "sequence_type": "protein",
+      "accession_hint": "P01308",
+      "expected": {
+        "identity": {
+          "status": "not_evaluated",
+          "accession": "P01308"
+        },
+        "sources": [
+          "uniprot",
+          "iedb",
+          "europe_pmc",
+          "esm_atlas"
+        ],
+        "evidence_expectations": [
+          {
+            "source": "uniprot",
+            "should_be_called": true,
+            "expect_status": "ok",
+            "expect_evidence_type": "curated_annotation",
+            "notes": "Verified live 2026-09-13: P01308 resolves to 'Insulin'."
+          },
+          {
+            "source": "esm_atlas",
+            "should_be_called": true,
+            "expect_status": "ok",
+            "expect_evidence_type": "predicted_structure",
+            "notes": "110 aa, well within the 400 aa fold limit."
+          },
+          {
+            "source": "iedb",
+            "should_be_called": true,
+            "expect_status": "ok",
+            "expect_evidence_type": "curated_epitope",
+            "notes": "Verified live 2026-09-13: IEDB has 705 curated epitope records for source antigen UNIPROT:P01308."
+          },
+          {
+            "source": "europe_pmc",
+            "should_be_called": true,
+            "expect_status": "ok",
+            "expect_evidence_type": "literature",
+            "notes": "Verified live 2026-09-13: 'Insulin epitope' query returned 26,473 hits on Europe PMC."
+          }
+        ],
+        "final_behavior": "not_evaluated"
+      }
+    },
+    {
+      "case_id": "hiv_gp160_oversized_with_hint",
+      "description": "HIV-1 envelope glycoprotein gp160 (UniProt P04578, HXB2 isolate), full length, 856 aa. Deliberately chosen because it naturally exceeds ESM Atlas's ~400 aa practical fold limit \u2014 this is a REAL protein demonstrating the same graceful-degradation property that fault Scenario B (curie/evaluation/scenarios/fault_scenarios.py) tests synthetically, but here it arises from an ordinary real input, not an injected fault.",
+      "sequence": "MRVKEKYQHLWRWGWRWGTMLLGMLMICSATEKLWVTVYYGVPVWKEATTTLFCASDAKAYDTEVHNVWATHACVPTDPNPQEVVLVNVTENFNMWKNDMVEQMHEDIISLWDQSLKPCVKLTPLCVSLKCTDLKNDTNTNSSSGRMIMEKGEIKNCSFNISTSIRGKVQKEYAFFYKLDIIPIDNDTTSYKLTSCNTSVITQACPKVSFEPIPIHYCAPAGFAILKCNNKTFNGTGPCTNVSTVQCTHGIRPVVSTQLLLNGSLAEEEVVIRSVNFTDNAKTIIVQLNTSVEINCTRPNNNTRKRIRIQRGPGRAFVTIGKIGNMRQAHCNISRAKWNNTLKQIASKLREQFGNNKTIIFKQSSGGDPEIVTHSFNCGGEFFYCNSTQLFNSTWFNSTWSTEGSNNTEGSDTITLPCRIKQIINMWQKVGKAMYAPPISGQIRCSSNITGLLLTRDGGNSNNESEIFRPGGGDMRDNWRSELYKYKVVKIEPLGVAPTKAKRRVVQREKRAVGIGALFLGFLGAAGSTMGAASMTLTVQARQLLSGIVQQQNNLLRAIEAQQHLLQLTVWGIKQLQARILAVERYLKDQQLLGIWGCSGKLICTTAVPWNASWSNKSLEQIWNHTTWMEWDREINNYTSLIHSLIEESQNQQEKNEQELLELDKWASLWNWFNITNWLWYIKLFIMIVGGLVGLRIVFAVLSIVNRVRQGYSPLSFQTHLPTPRGPDRPEGIEEEGGERDRDRSIRLVNGSLALIWDDLRSLCLFSYHRLRDLLLIVTRIVELLGRRGWEALKYWWNLLQYWSQELKNSAVSLLNATAIAVAEGTDRVIEVVQGACRAIRHIPRRIRQGLERILL",
+      "sequence_type": "protein",
+      "accession_hint": "P04578",
+      "expected": {
+        "identity": {
+          "status": "not_evaluated",
+          "accession": "P04578"
+        },
+        "sources": [
+          "uniprot",
+          "iedb",
+          "europe_pmc",
+          "esm_atlas"
+        ],
+        "evidence_expectations": [
+          {
+            "source": "uniprot",
+            "should_be_called": true,
+            "expect_status": "ok",
+            "expect_evidence_type": "curated_annotation",
+            "notes": "Verified live 2026-09-13: P04578 resolves to 'Envelope glycoprotein gp160'."
+          },
+          {
+            "source": "esm_atlas",
+            "should_be_called": false,
+            "expect_status": "skipped",
+            "expect_evidence_type": null,
+            "notes": "856 aa > 400 aa limit; verified this exceeds ESM Atlas's practical fold length. Correctly SKIPPED, not truncated."
+          },
+          {
+            "source": "iedb",
+            "should_be_called": true,
+            "expect_status": "ok",
+            "expect_evidence_type": "curated_epitope",
+            "notes": "Verified live 2026-09-13: IEDB has 527 curated epitope records for source antigen UNIPROT:P04578."
+          },
+          {
+            "source": "europe_pmc",
+            "should_be_called": true,
+            "expect_status": "ok",
+            "expect_evidence_type": "literature",
+            "notes": "Verified live 2026-09-13: 'Envelope glycoprotein gp160 epitope' query returned 2,622 hits on Europe PMC."
+          }
+        ],
+        "final_behavior": "not_evaluated"
+      }
+    }
+  ]
+}
