@@ -197,6 +197,10 @@ The backend is a standard FastAPI app (`render.yaml` targets Render — binds to
 static Vite build (deployable to Vercel; point `VITE_API_BASE_URL` at the deployed
 backend). Neither platform is required to run Curie locally.
 
+
+## Demo link : https://drive.google.com/file/d/1iT_zEDrCVO3vL1MHKPigvFWPvgngBAPt/view?usp=sharing
+couldn't make it better in the given time frame 🥲
+
 ## Limitations
 
 Curie does not perform sequence-homology search — without a supplied accession, it
